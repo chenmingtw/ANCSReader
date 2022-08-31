@@ -239,7 +239,7 @@ public class LeService extends Service {
     private class LocalScanCallBack extends ScanCallback {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            Log.d(TAG, "onScanResult Device Address :" + result.getDevice());
+            Log.d(TAG, "onScanResult Device Address :" + result.getDevice() + " (" + result.getScanRecord().getDeviceName() + ")");
 
             BluetoothDevice device = result.getDevice();
 
@@ -346,12 +346,12 @@ public class LeService extends Service {
                 byte[] nsData = characteristic.getValue();
                 notification = new com.jiesean.readancs.dataprocess.Notification(nsData);
                 mNotificationIntent.putExtra("notice", notification);
-//                System.out.println("EventId:" + String.format("%d", nsData[0]) + "\n" +
-//                        "EventFlags:" + String.format("%02x", nsData[1]) + "\n" +
-//                        "Category id:" + String.format("%d", nsData[2]) + "\n" +
-//                        "Category Count:" + String.format("%d", nsData[3]) + "\n" +
-//                        "NotificationUId:" + String.format("%02X", nsData[4]) + String.format("%02X", nsData[5]) + String.format("%02X", nsData[6]) + String.format("%02X", nsData[7]) + "\n"
-//                );
+                System.out.println("EventId:" + String.format("%d", nsData[0]) + "\n" +
+                        "EventFlags:" + String.format("%02x", nsData[1]) + "\n" +
+                        "Category id:" + String.format("%d", nsData[2]) + "\n" +
+                        "Category Count:" + String.format("%d", nsData[3]) + "\n" +
+                        "NotificationUId:" + String.format("%02X", nsData[4]) + String.format("%02X", nsData[5]) + String.format("%02X", nsData[6]) + String.format("%02X", nsData[7]) + "\n"
+                );
 
                 if ((nsData[0] & 0x02) > 0) {
                     sendBroadcast(mNotificationIntent);
